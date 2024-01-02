@@ -1,0 +1,24 @@
+{% extends 'lecturer/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>{{course.name}}</h2>
+        </div>
+    </div>
+    <br>
+
+    <ul class="list-group">
+        {% for student in students %}
+            <li class="list-group-item list-group-item-action">
+                <p class="mb-1">Student Id: {{student.student_id}} </p>
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{student}}</h5>
+                </div>
+            </li>
+        {% endfor %}   
+    </ul>
+{% endblock %}

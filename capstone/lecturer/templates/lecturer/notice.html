@@ -1,0 +1,71 @@
+{% extends 'lecturer/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>Notice</h2>
+            <div style="padding-left: 10px;">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#NoticeModal" class="btn btn-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                    </svg>
+                    New Notice
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="NoticeModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Create New Notice</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'notice' %}" method="post">
+                    {% csrf_token %}
+                    <label for="course">Course:</label>
+                    <select name="course" id="course">
+                        {% for course in courses %}
+                            <option value="{{course}}">{{course}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" placeholder="Title" id="notice_title"> 
+                    <br>
+                    <label for="body">Body:</label>
+                    <textarea name="body" id=""body cols="30" rows="5"></textarea>
+                    <br>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="close" class="btn btn-primary">Save </button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <br>
+    {% for notice in notices %}
+        <div class="list-group" style="padding-bottom: 10px;">
+            <a href="{% url 'notice_page' notice.id %}" class="list-group-item list-group-item-action active" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{notice.lecturer.first_name}}'s notice for {{notice.course}}</h5>
+                <small>{{notice.time}}</small>
+                </div>
+                <p class="mb-1">{{notice.title}}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+
+    <script >
+        document.querySelector('#close').addEventListener('click', function() {
+            alert('New notice added successfully');
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'student/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>Notice</h2>
+        </div>
+    </div>
+
+    <br>
+    {% for notice in notices %}
+        <div class="list-group" style="padding-bottom: 10px;">
+            <a href="{% url 'notice_page_student' notice.id %}" class="list-group-item list-group-item-action active" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{notice.lecturer.first_name}}'s notice for {{notice.course}}</h5>
+                <small>{{notice.time}}</small>
+                </div>
+                <p class="mb-1"> Title: {{notice.title}}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+{% endblock %}

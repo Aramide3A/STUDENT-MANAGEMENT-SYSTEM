@@ -1,0 +1,71 @@
+{% extends 'lecturer/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>Class Schedule</h2>
+            <div style="padding-left: 10px;">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#ScheduleModal" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                    </svg>
+                    Add schedule
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ScheduleModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New Class Schedule</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'class' %}" method="post">
+                    {% csrf_token %}
+                    <label for="course">Course:</label>
+                    <select name="course" id="course">
+                    {% for course in courses %}
+                        <option value="{{course}}">{{course}}</option>
+                    {% endfor %}
+                    </select>
+                    <br>
+                    <label for="time">Date/Time:</label>
+                    <input type="datetime-local" name="time" id="time" >
+                    <button type="submit" id="close" class="btn btn-primary">Save changes</button>
+                </form>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <br>
+
+    <div class="row row-cols-1 row-cols-md-3  " style="padding-top: 20px; padding-left: 40px;">
+        {% for schedule in schedules %}
+            <a href="{%  url 'course' schedule.course.id %}">
+                <div class="col" style="padding-top: 20px;">
+                    <div class="card text-bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h4 class="card-title">{{schedule.course}}</h4>
+                            <p class="card-text">Time: {{schedule.time}}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+
+    <script >
+        document.querySelector('#close').addEventListener('click', function() {
+            alert('New schedule created');
+        })
+    </script>
+{% endblock %}

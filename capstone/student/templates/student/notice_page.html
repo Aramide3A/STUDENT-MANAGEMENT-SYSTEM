@@ -1,0 +1,21 @@
+{% extends 'student/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <h2>Notice for {{notice.course}}</h2>
+        </div>
+    </div>
+
+    <br>
+    <div class="card" >
+        <div class="card-body">
+            <h5 class="card-title" id="noticeTitle"><strong>Title : </strong> {{notice.title}}</h5>
+            <p class="card-text" id="noticeBody"><strong>Body: </strong> {{notice.body}}</p>
+        </div>
+    </div>
+
+{% endblock %}

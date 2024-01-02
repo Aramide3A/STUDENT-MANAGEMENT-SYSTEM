@@ -1,0 +1,35 @@
+{% extends 'lecturer/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <h1 style="text-align: center;">Welcome!</h1>
+
+    <br>
+    
+    <div class="row" style="padding-top: 100px;">
+        <div  class="col-sm-6 mb-3 mb-sm-0" style="padding-left: 250px;">
+            <a href="{% url 'login' %}">
+                <div id="stafficon" class="card text-center text-bg-info" style="width: 18rem; ">
+                    <img src="{% static 'lecturer/staff-icon.svg' %}" style="height: 180px;" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h4 class="card-text"><strong>STAFF</strong></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div  class="col-sm-6" style="padding-left: 50px;">
+            <a href="{% url 'index_student' %}">
+                <div class="card text-center text-bg-info" id="studenticon" style="width: 18rem;">
+                    <img src="{% static 'lecturer/student.jpg' %}" style="height: 180px;" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h4 class="card-text"><strong>STUDENT</strong></h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script src="{% static 'lecturer/lecturer.js' %}"></script>
+{% endblock %}
